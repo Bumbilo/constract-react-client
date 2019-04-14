@@ -1,4 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from "react-dom";
+import { App } from './components/App';
+import './style/style.sass';
 
-ReactDOM.render(<h1>Hello world</h1>, document.querySelector('.container'));
+ReactDOM.render(<App name="Construct" />, document.getElementById('app'));

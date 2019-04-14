@@ -1,34 +1,53 @@
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const devMode = process.env.NODE_ENV !== 'production';
+
 module.exports = {
     entry: "./src/index.tsx",
     output: {
         filename: "bundle.js",
-        path: __dirname + "/dist"
+        path: path.resolve(__dirname, "build")
+        },
+    module: {
+        rules: [
+            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            {
+                test: /\.sass$/,
+                use: [
+                'style-loader',
+                MiniCssExtractPlugin.loader,
+            {
+                loader: 'css-loader',
+                options: { sourceMap: true }
+            }, {
+                loader: 'sass-loader',
+                options: { sourceMap: true }
+            }]
+            },
+            {
+                test: /\.css$/,
+                use: [ MiniCssExtractPlugin.loader, "css-loader"]
+            },
+        ]
     },
-
-    // Enable sourcemaps for debugging webpack's output.
+    devServer: {
+        contentBase: path.join(__dirname, 'build'),
+        compress: true,
+        port: 9000
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+        })
+    ],
     devtool: "source-map",
-
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
-
-    module: {
-        rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
-        ]
-    },
-
-    // When importing a module whose path matches one of the following, just
-    // assume a corresponding global variable exists and use that instead.
-    // This is important because it allows us to avoid bundling all of our
-    // dependencies, which allows browsers to cache those libraries between builds.
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-    }
 };
