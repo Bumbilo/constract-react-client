@@ -1,0 +1,29 @@
+{
+  "name": "construct-react-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bumbilo/constract-react-client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bumbilo/constract-react-client/issues"
+  },
+  "homepage": "https://github.com/Bumbilo/constract-react-client#readme",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "typescript": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.13",
+    "@types/react-dom": "^16.8.4",
+    "parcel-bundler": "^1.12.3"
+  }
+}
